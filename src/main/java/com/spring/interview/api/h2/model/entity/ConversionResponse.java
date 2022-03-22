@@ -8,17 +8,19 @@ public class ConversionResponse implements Serializable {
     private BigDecimal converted;
     private String from;
     private String to;
-    private String typeConversion;
+    private BigDecimal rates;
+    private String developer;
 
     public ConversionResponse() {
     }
 
-    public ConversionResponse(BigDecimal amount, BigDecimal converted, String from, String to, String typeConversion) {
+    public ConversionResponse(BigDecimal amount, BigDecimal converted, String from, String to, BigDecimal rates, String developer) {
         this.amount = amount;
         this.converted = converted;
         this.from = from;
         this.to = to;
-        this.typeConversion = typeConversion;
+        this.rates = rates;
+        this.developer = developer;
     }
 
     public BigDecimal getAmount() {
@@ -53,13 +55,22 @@ public class ConversionResponse implements Serializable {
         this.to = to;
     }
 
-    public String getTypeConversion() {
-        return typeConversion;
+    public BigDecimal getRates() {
+        return rates;
     }
 
-    public void setTypeConversion(String typeConversion) {
-        this.typeConversion = typeConversion;
+    public void setRates(BigDecimal rates) {
+        this.rates = rates;
     }
+
+    public String getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
+    }
+
     @Override
     public String toString() {
         return "ConversionResponse{" +
@@ -67,7 +78,8 @@ public class ConversionResponse implements Serializable {
                 ", converted=" + converted +
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
-                ", typeConversion='" + typeConversion + '\'' +
+                ", rates=" + rates +
+                ", developer='" + developer + '\'' +
                 '}';
     }
 }

@@ -35,13 +35,13 @@ public class ExchangeController {
         }
         return oExchanges.get();
     }
-    @GetMapping("/nameRate/{nameRate}/amount/{amount}")
-    public ConversionResponse getByNameRate(@PathVariable(value="nameRate")String nameRate, @PathVariable(value="amount")BigDecimal amount){
-        List<ExchangeRates> exchangeRates = (List<ExchangeRates>) exchangeDAO.findExchangeRatessByNameRateContainsIgnoreCase(nameRate);
+    @GetMapping("/from/{from}/to/{to}/amount/{amount}")
+    public ConversionResponse getByNameRate(@PathVariable(value="from")String from,@PathVariable(value="to")String to, @PathVariable(value="amount")BigDecimal amount){
+        List<ExchangeRates> exchangeRates = (List<ExchangeRates>) exchangeDAO.findExchangeRatessByNameRateContainsIgnoreCase(from+to);
         if(exchangeRates.isEmpty()){
             throw new BadRequestException("No sorportamos este tipo de cambio");
         }
-        ConversionResponse data = new ConversionResponse(amount,amount.multiply(exchangeRates.get(0).getRates()),exchangeRates.get(0).getNameRate().substring(0,3),exchangeRates.get(0).getNameRate().substring(3,6),exchangeRates.get(0).getNameRate());
+        ConversionResponse data = new ConversionResponse(amount,amount.multiply(exchangeRates.get(0).getRates()),exchangeRates.get(0).getNameRate().substring(0,3),exchangeRates.get(0).getNameRate().substring(3,6),exchangeRates.get(0).getRates(),"EDIXCARLOS");
         return data;
     }
 
