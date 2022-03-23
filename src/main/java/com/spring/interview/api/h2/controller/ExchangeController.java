@@ -5,6 +5,7 @@ import com.spring.interview.api.h2.model.entity.ConversionResponse;
 import com.spring.interview.api.h2.model.entity.ExchangeRates;
 import com.spring.interview.api.h2.services.contract.ExchangeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class ExchangeController {
     private final ExchangeDAO exchangeDAO;
     @Autowired
@@ -44,7 +45,7 @@ public class ExchangeController {
         ConversionResponse data = new ConversionResponse(amount,amount.multiply(exchangeRates.get(0).getRates()),exchangeRates.get(0).getNameRate().substring(0,3),exchangeRates.get(0).getNameRate().substring(3,6),exchangeRates.get(0).getRates(),"EDIXCARLOS");
         return data;
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public ExchangeRates newExchange(@RequestBody ExchangeRates exchange){
         return exchangeDAO.save(exchange);
